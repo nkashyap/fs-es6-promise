@@ -7,7 +7,7 @@ const fs = require('./');
 const assert = require('assert');
 require('mocha');
 
-describe('file-system-es6-promise', () => {
+describe('fs-es6-promise', () => {
 
     describe('access()', () => {
         it('should execute command with correct arguments', (done) => {
