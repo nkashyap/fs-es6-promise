@@ -17,10 +17,11 @@ describe('file-system-es6-promise', () => {
                 });
         });
         it('should fail to execute command ', (done) => {
-            fs.access('/etc/passwd', fs.F_OK)
+            fs.access('/etc/test', fs.X_OK)
                 .catch((error) => {
-                    console.log(error);
-                    //assert.equal(error, '');
+                    assert.equal(error.code, 'ENOENT');
+                    assert.equal(error.syscall, 'access');
+                    assert.equal(error.path, '/etc/test');
                     done();
                 });
         });
