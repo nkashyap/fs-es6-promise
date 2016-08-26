@@ -1,6 +1,6 @@
 {
   "name": "fs-es6-promise",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "ES6 promise wrapper around fs",
   "main": "index.js",
   "scripts": {
