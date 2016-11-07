@@ -1,0 +1,14 @@
+{
+	// See https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es6",
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"noImplicitAny": true,
+		"strictNullChecks": true
+	},
+	"exclude": [
+		"node_modules"
+	]
+}
