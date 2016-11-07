@@ -3,10 +3,18 @@
   "version": "0.0.2",
   "description": "ES6 promise wrapper around fs",
   "main": "index.js",
+  "files": [
+    "execute.js",
+    "index.js",
+    "index.d.ts",
+    "tsconfig.json"
+  ],
   "scripts": {
-    "lint": "eslint index.js test.js",
-    "pretest": "npm run lint",
-    "test": "mocha --reporter spec"
+    "build": "tsc",
+    "lint": "tslint index.ts execute.ts test.ts",
+    "pretest": "npm run lint && npm run build",
+    "test": "mocha --reporter spec",
+    "prepublish": "npm run test"
   },
   "keywords": [
     "fs",
@@ -28,8 +36,13 @@
   },
   "homepage": "https://github.com/nkashyap/fs-es6-promise#readme",
   "devDependencies": {
-    "eslint": "^1.10.3",
-    "mocha": "^2.4.5"
+    "@types/assert": "0.0.29",
+    "@types/mocha": "^2.2.32",
+    "@types/node": "^6.0.46",
+    "mocha": "^3.1.2",
+    "tslint": "^3.15.1",
+    "typescript": "^2.0.7",
+    "typescript-eslint-parser": "github:eslint/typescript-eslint-parser#ts-2"
   },
   "engines": {
     "node": ">4.0.0"
