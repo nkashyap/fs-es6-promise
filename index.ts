@@ -10,18 +10,12 @@ export function chmod(path: string | Buffer, mode: number | string): Promise<und
 export function fchmod(fd: number, mode: number | string): Promise<undefined> {
     return execute0(fs.fchmod, fd, mode);
 }
-export function lchmod(path: string | Buffer, mode: number | string): Promise<undefined> {
-    return execute0(fs.lchmod, path, mode);
-}
 
 export function chown(path: string | Buffer, uid: number, gid: number): Promise<undefined> {
     return execute0(fs.chown, path, uid, gid);
 }
 export function fchown(fd: number, uid: number, gid: number): Promise<undefined> {
     return execute0(fs.fchown, fd, uid, gid);
-}
-export function lchown(path: string | Buffer, uid: number, gid: number): Promise<undefined> {
-    return execute0(fs.lchown, path, uid, gid);
 }
 
 export function stat(path: string | Buffer): Promise<fs.Stats> {
@@ -72,6 +66,9 @@ export function write(fd: number, data: any | Buffer, offset?: number, encodingO
 export function fsync(fd: number): Promise<undefined> {
     return execute0(fs.fsync, fd);
 }
+export function fdatasync(fd: number): Promise<undefined> {
+    return execute0(fs.fdatasync, fd);
+}
 
 export function readFile(filename: string, encoding: string): Promise<string>;
 export function readFile(filename: string, options: { encoding: string, flag?: string }): Promise<string>;
@@ -96,6 +93,9 @@ export function access(path: string | Buffer, mode: number): Promise<undefined> 
 }
 export function mkdir(path: string | Buffer, mode?: number | string): Promise<undefined> {
     return execute0(fs.mkdir, path, mode);
+}
+export function mkdtemp(prefix: string): Promise<string> {
+    return execute0(fs.mkdtemp, prefix);
 }
 export function readdir(path: string | Buffer): Promise<string[]> {
     return execute1(fs.readdir, path);

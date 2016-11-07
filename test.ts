@@ -4,9 +4,25 @@
 
 import * as fs from '.';
 import * as assert from 'assert';
+import * as nodeFS from 'fs';
 import 'mocha';
 
 describe('fs-es6-promise', () => {
+
+    it('should cover all relevant node fs functions', () => {
+        const nodeFSNamespace = (nodeFS as {[n: string]: any});
+        const asyncNodeFSExports = Object.keys(nodeFS)
+            .filter(name => !/^_|Sync$|^(un)?watch|Stream$|^Stats$|^exists$/.test(name))
+            .filter(name => nodeFSNamespace[name] instanceof Function)
+            .sort();
+
+        const ourFSNamespace  = (fs as {[n: string]: any});
+        const ourExports = Object.keys(fs)
+            .filter(name => ourFSNamespace[name] instanceof Function)
+            .sort();
+
+        assert.deepStrictEqual(asyncNodeFSExports, ourExports);
+    });
 
     describe('access()', () => {
         it('should resolve promise', (done) => {
