@@ -1,7 +1,15 @@
 "use strict";
-/**
- * Created by Nisheeth on 06/02/2016.
- */
+const zip = (keys, values) => {
+  return keys
+    .map((key, i) => ({
+      key: key,
+      value: values[i],
+    }))
+    .reduce((acc, item) => {
+      acc[item.key] = item.value;
+      return acc;
+    }, {})
+};
 
 /**
  * Create a new FileSystem
@@ -15,13 +23,18 @@ class FileSystem {
     this.fs = require('fs');
   }
 
-  execute(method, params) {
+  execute(method, params, signature) {
     const args = Array.from(params);
     return (new Promise((resolve, reject) => {
       args.push((error, ...cbArgs) => {
         if (error) return reject(error);
-        resolve(...cbArgs);
+        if (signature) {
+          resolve(zip(signature, cbArgs));
+        } else {
+          resolve(cbArgs[0]);
+        }
       });
+
       this.fs[method].apply(this.fs, args);
     }));
   }
@@ -111,7 +124,7 @@ class FileSystem {
   }
 
   read(fd, buffer, offset, length, position) {
-    return this.execute('read', arguments);
+    return this.execute('read', arguments, ['bytesRead', 'buffer']);
   }
 
   readdir(path) {
@@ -159,7 +172,7 @@ class FileSystem {
   }
 
   write(fd, buffer, offset, length, position) {
-    return this.execute('write', arguments);
+    return this.execute('write', arguments, ['written', 'buffer']);
   }
 
   writeFile(file, data, options) {
